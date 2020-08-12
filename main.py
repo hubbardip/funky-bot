@@ -28,19 +28,16 @@ async def on_message(message):
 
     #print(message.content)
 
-    """
+    
     if "/compile" in message.content:
         prog = message.content[9:]
 
         old_stdout = sys.stdout
-        old_stderr = sys.stderr
-        red_output = sys.stdout = sys.stderr = StringIO()
-        print(prog)
+        red_output = sys.stdout = StringIO()
         exec(prog)
         sys.stdout = old_stdout
-        sys.stderr = old_stderr
         await message.channel.send(red_output.getvalue())
-    """
+    
     
     matches = tool.check(message.content)
 
