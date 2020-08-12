@@ -1,15 +1,12 @@
 import os
 import discord
 from dotenv import load_dotenv
-import language_check
 import sys
 from io import StringIO
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
-
-tool = language_check.LanguageTool('en-US')
 
 client = discord.Client()
 
@@ -38,29 +35,5 @@ async def on_message(message):
         sys.stdout = old_stdout
         await message.channel.send(red_output.getvalue())
     
-    
-    matches = tool.check(message.content)
-
-    response = ""
-    ignored_categories = ["Capitalization"]
-    for match in matches:
-        tox = match.tox
-        fromx = match.fromx
-        
-        if match.category == "Possible Typo":
-            word = message.content[fromx:tox]
-            replacements = []
-            for r in match.replacements:
-                if r.lower() != word.lower():
-                    replacements.append(r)
-
-            if len(match.replacements) > 0 and len(replacements) == 0:
-                add_res = False
-            
-            if len(replacements) > 0:
-                response += f"Did you mean one of these: {', '.join(replacements)}\n"
-
-    if response != "":
-        await message.channel.send(response)
 
 client.run(TOKEN)
