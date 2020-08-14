@@ -3,6 +3,7 @@ import discord
 from dotenv import load_dotenv
 import sys
 from io import StringIO
+import compile_code
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -28,12 +29,18 @@ async def on_message(message):
     
     if "/compile" in message.content:
         prog = message.content[9:]
-
+        """
         old_stdout = sys.stdout
-        red_output = sys.stdout = StringIO()
+        output = sys.stdout = StringIO()
         exec(prog)
         sys.stdout = old_stdout
-        await message.channel.send(red_output.getvalue())
+        """
+        output = compile_code.comp(prog)
+        if output[0] == "ok":
+            print("hello")
+            await message.channel.send(output[1])
+        else:
+            await message.channel.send(f"Error: {output[1]}")
     
 
 client.run(TOKEN)
