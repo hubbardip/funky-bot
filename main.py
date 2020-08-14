@@ -27,7 +27,7 @@ async def on_message(message):
     #print(message.content)
 
     
-    if "/compile" in message.content:
+    if message.content[:8] == "/compile":
         prog = message.content[9:]
         """
         old_stdout = sys.stdout
