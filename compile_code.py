@@ -15,7 +15,7 @@ def comp(lang, raw_src_code):
 
     #raw_src_code = input()
     src_code = raw_src_code.replace("\"", "\\\"")
-    payload = "{ \"language_id\": " + lang_code + ", \"source_code\": \"" + src_code + "\"}"
+    payload = "{ \"language_id\": " + str(lang_code) + ", \"source_code\": \"" + src_code + "\"}"
     
     headers = {
         'x-rapidapi-host': "judge0.p.rapidapi.com",
