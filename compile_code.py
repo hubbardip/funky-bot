@@ -2,12 +2,20 @@ import http.client
 import json
 from time import sleep
 
-def comp(raw_src_code):
+def comp(lang, raw_src_code):
+
+    lang_code = -1
+    if lang.lower() in ["python", "py"]:
+        lang_code = 71
+    elif lang.lower() in ["javascript", "js"]:
+        lang_code = 63
+    else:
+        return "err", "language not recognized"
     conn = http.client.HTTPSConnection("judge0.p.rapidapi.com")
 
     #raw_src_code = input()
     src_code = raw_src_code.replace("\"", "\\\"")
-    payload = "{ \"language_id\": 71, \"source_code\": \"" + src_code + "\"}"
+    payload = "{ \"language_id\": " + str(lang_code) + ", \"source_code\": \"" + src_code + "\"}"
     
     headers = {
         'x-rapidapi-host': "judge0.p.rapidapi.com",
