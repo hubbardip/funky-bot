@@ -6,7 +6,7 @@ from io import StringIO
 import compile_code
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = "NzQyNTQ1NzcwODAwMDg3MTAw.XzHrow.ganMphJrM2AHNvLzhYjp2e0QSSo"
 GUILD = os.getenv('DISCORD_GUILD')
 
 client = discord.Client()
@@ -30,7 +30,7 @@ async def on_message(message):
     if message.content[:8] == "+compile":
         
         prog_lang = message.content[9:]
-        prog = prog_lang.split(" ")[1]
+        prog = " ".join(prog_lang.split(" ")[1:])
         lang = prog_lang.split(" ")[0]
         output = compile_code.comp(lang, prog)
         if output[0] == "ok":
